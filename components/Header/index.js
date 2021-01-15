@@ -1,10 +1,29 @@
 import styles from './Header.module.css'
 import classnames from 'classnames'
+import { useEffect, useRef, useState } from 'react'
+import MobileMenu from '../MobileMenu'
 
 export default function Header() {
+  const [isScrolled, setIsScrolled] = useState(false)
+  const scrollValue = useRef(0)
+
+  function handleScrollChange() {
+    const newScrollValue = window.scrollY
+    if(!!newScrollValue !== !!scrollValue.current) {
+      setIsScrolled(oldValue => !oldValue)
+    }
+    scrollValue.current = newScrollValue
+  }
+
+  useEffect(function changeBgOnScroll() {
+    setIsScrolled(!!window.scrollY)
+    scrollValue.current = window.scrollY
+    window.addEventListener('scroll', handleScrollChange)
+  }, [])
+
   return (
-    <nav className={styles.header}>
-      <button className={styles.headerMenuBtn}>menu</button>
+    <nav className={classnames(styles.header, {[styles.headerScrolled]: isScrolled})}>
+      <MobileMenu />
       <div className={classnames(styles.headerSection, styles.mainSection)}>
         <img src="/liteflix.svg"></img>
         <a className={styles.mainOption}>inicio</a>

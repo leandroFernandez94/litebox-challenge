@@ -1,0 +1,14 @@
+.menuContainer {
+  cursor: pointer;
+  display: block;
+  position:absolute;
+  left: 10px;
+}
+
+.bar {
+  width: 21px;
+  height: 1px;
+  background-color: white;
+  margin: 6px 0;
+  transition: 0.2s;
+}

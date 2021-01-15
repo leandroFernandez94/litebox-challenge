@@ -1,6 +1,15 @@
+.appSectionContainer {
+  top: 30%;
+}
+
 .sectionItems {
   display: flex;
   justify-content: space-between;
+}
+
+
+.posterImg {
+  width: 100%;
 }
 
 @media (max-width: 700px) {
