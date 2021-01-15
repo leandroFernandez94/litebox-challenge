@@ -1,0 +1,17 @@
+.sectionItems {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 700px) {
+  .sectionItems {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .movieItemContainer {
+    width: 100%;
+    padding: 0 10px;
+    height: 100px;
+  }
+}
