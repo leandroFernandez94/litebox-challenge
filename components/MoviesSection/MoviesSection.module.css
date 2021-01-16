@@ -4,7 +4,11 @@
 
 .sectionItems {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+}
+
+.sectionItems.verticalItems > * {
+  max-width: 25%;
 }
 
 
@@ -18,9 +22,13 @@
     flex-direction: column;
   }
 
-  .movieItemContainer {
-    width: 100%;
-    padding: 0 10px;
-    height: 100px;
+  
+  .sectionItems.verticalItems {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .sectionItems.verticalItems > * {
+    max-width: 50%;
   }
 }

@@ -1,0 +1,91 @@
+
+.modalForm {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+.fileInput {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.fileInputLabel {
+  width: 100%;
+  height: 100px;
+  padding: 40px auto;
+  border-radius: 10px;
+  border: dashed 1px #9b9b9b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clipContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.clip {
+  margin: 0 7px 0 0;
+  object-fit: contain;
+}
+
+.highlightedText {
+  font-weight: bold;
+  color: #0076ff;
+  white-space: pre;
+}
+
+.detailsContainer {
+  display: flex;
+  column-gap: 30px;
+  margin-top: 30px;
+  justify-content: space-between;
+}
+
+.detailsContainer > label {
+  width: 50%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.inputLabel {
+  /* font-family: Montserrat; */
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 5px;
+  color: #9b9b9b;
+  text-transform: uppercase;
+}
+
+.modalInput {
+  outline: none;
+  border-width:0px;
+  border:none;
+  border-bottom: 2px solid #0076ff;
+  height: 30px;
+}
+
+.submitBtnContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 44px;
+}
+
+.submitBtn {
+  padding: 26px 120px;
+  border-radius: 35px;
+  border: none;
+  background-color: #dedede;
+  color: white;
+  align-self: center;
+}

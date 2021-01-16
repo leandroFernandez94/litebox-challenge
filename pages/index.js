@@ -1,8 +1,9 @@
-import Head from 'next/head'
 import {Fragment, useState, useEffect} from 'react'
 import Header from '../components/Header'
 import NowPlayingDetails from '../components/NowPlayingDetails'
 import MoviesSection from '../components/MoviesSection'
+import UploadModal from '../components/UploadModal'
+import MyList from '../components/MyList'
 
 async function fetchUpcoming() {
   const result = await fetch('https://api.themoviedb.org/3/movie/upcoming?api_key=6f26fd536dd6192ec8a57e94141f8b20')
@@ -27,11 +28,11 @@ export default function Home() {
   const [loadingPoster, setLoadingPoster] = useState(true)
 
   const [nowPlaying, setNowPlaying] = useState(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(fetchNowPlayingData, [])
 
   async function handlePosterPath(path) {
-    console.log('path', path)
     const data = await fetch(`https://image.tmdb.org/t/p/original${path}`)
     const dataBlob = await data.blob()
     setMainPoster(URL.createObjectURL(dataBlob))
@@ -41,7 +42,6 @@ export default function Home() {
   async function fetchNowPlayingData() {
     try {
       const data = await fetchNowPlaying()
-      console.log(data)
       setNowPlaying(data)
       handlePosterPath(data.backdrop_path)
     } catch(e) {
@@ -52,7 +52,8 @@ export default function Home() {
   return (
     <Fragment>
       <div id="app-container">
-        <Header/>
+        <Header openUploadMovieModal={setIsModalOpen}/>
+        
         <div className="now-playing">
           {
             !loadingPoster && 
@@ -64,12 +65,16 @@ export default function Home() {
           }
         </div>
         <MoviesSection name="Proximamente" fetchFunction={fetchUpcoming}/>
-        <MoviesSection name="Populares en Liteflix" fetchFunction={fetchPopular}/>
+        <MoviesSection name="Populares en Liteflix" fetchFunction={fetchPopular} usePoster/>
+        <MyList />
+        <UploadModal isOpen={isModalOpen} onCloseModal={() => setIsModalOpen(false)}/>
         {/* <footer></footer> */}
       </div>
+      <div id="upload-movie-modal"/>
       <style jsx>{`
         #app-container {
-          padding: 0 20%; 
+          padding: 0 12%;
+          height: 100%;
         }
 
         .gradient-container {
@@ -89,8 +94,7 @@ export default function Home() {
     
         @media (max-width: 700px) {
           #app-container {
-            height: 100%;
-            padding: 0;
+            padding: 0 16px;
           }
         }
       `}</style>

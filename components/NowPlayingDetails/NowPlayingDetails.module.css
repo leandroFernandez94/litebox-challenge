@@ -1,6 +1,5 @@
 .nowPlayingDetails {
   color: white;
-  z-index: 1; 
   position: absolute;
   top: 30%;
   width: 100%;
