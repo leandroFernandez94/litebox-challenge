@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import useMedia from '../../hooks/useMedia'
+import useMobileMedia from '../../hooks/useMobileMedia'
 import styles from './NowPlaying.module.css'
 import NowPlayingDetails from './NowPlayingDetails'
 
@@ -13,7 +13,7 @@ export default function NowPlaying() {
   const [mainPoster, setMainPoster] = useState(null)
   const [loadingPoster, setLoadingPoster] = useState(true)
   const [data, setData] = useState(null)
-  const isMobile = useMedia('(max-width: 700px)')
+  const isMobile = useMobileMedia()
   
   useEffect(fetchNowPlayingData, [])
   

@@ -1,10 +1,15 @@
 import styles from './Header.module.css'
 import classnames from 'classnames'
-import { useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
+import Profile from '../Profile'
+import AddMovieButton from '../AddMovieButton'
+import useMobileMedia from '../../hooks/useMobileMedia'
 
 export default function Header({openUploadMovieModal}) {
   const [isScrolled, setIsScrolled] = useState(false)
   const scrollValue = useRef(0)
+
+  const isMobile = useMobileMedia()
 
   function handleScrollChange() {
     const newScrollValue = window.scrollY
@@ -22,18 +27,26 @@ export default function Header({openUploadMovieModal}) {
 
   return (
     <nav className={classnames(styles.header, {[styles.headerScrolled]: isScrolled})}>
-      <div className={classnames(styles.headerSection, styles.mainSection)}>
+      {isMobile ? (
         <img src="/liteflix.svg"></img>
-        <a className={styles.mainOption}>inicio</a>
-        <a className={styles.mainOption}>series</a>
-        <a className={styles.mainOption}>peliculas</a>
-        <a className={styles.mainOption}>agregados recientemente</a>
-        <a className={styles.mainOption}>mi lista</a>
-        <button className={styles.mainOption} onClick={() => openUploadMovieModal(true)}>+ agregar pelicula</button>
-      </div>
-      <div className={classnames(styles.headerSection, styles.profileSection)}>
-        <span>Ninos</span>
-      </div>
+      ) : (
+        <Fragment>
+          <div className={classnames(styles.headerSection, styles.mainSection)}>
+            <img src="/liteflix.svg"></img>
+            <a className={styles.mainOption}>inicio</a>
+            <a className={styles.mainOption}>series</a>
+            <a className={styles.mainOption}>peliculas</a>
+            <a className={styles.mainOption}>agregados recientemente</a>
+            <a className={styles.mainOption}>mi lista</a>
+            <AddMovieButton onClick={() => openUploadMovieModal(true)} />
+          </div>
+          <div className={classnames(styles.headerSection, styles.profileSection)}>
+            <span className={styles.mainOption}>Niños</span>
+            <Profile/>
+          </div>
+        </Fragment>
+      )}
+
     </nav>
   )
 }

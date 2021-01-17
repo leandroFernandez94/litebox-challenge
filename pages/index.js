@@ -5,6 +5,7 @@ import UploadModal from '../components/UploadModal'
 import MyList from '../components/MyList'
 import NowPlaying from '../components/NowPlaying'
 import MobileMenu from '../components/MobileMenu'
+import useMobileMedia from '../hooks/useMobileMedia'
 
 async function fetchUpcoming() {
   const result = await fetch('https://api.themoviedb.org/3/movie/upcoming?api_key=6f26fd536dd6192ec8a57e94141f8b20')
@@ -20,11 +21,12 @@ async function fetchPopular() {
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const isMobile = useMobileMedia()
 
   return (
     <Fragment>
       <div id="app-container">
-        <MobileMenu />
+        {isMobile && <MobileMenu />}
         <Header openUploadMovieModal={setIsModalOpen} />
         <NowPlaying />
         <div className="lists-container">

@@ -15,8 +15,6 @@ export default function MobileMenu() {
     mobileElement.current = document.querySelector('#mobile-sidebar')
   }, [])
 
-  console.log(mobileElement.current && isOpen)
-
   return (
     <div className={styles.menuContainer} onClick={() => setIsOpen(oldVal => !oldVal)}>
       <img src="/menu.svg"></img>

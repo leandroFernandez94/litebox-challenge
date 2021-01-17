@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 
-export default function useMedia(query) {
+export default function useMobileMedia(query = '(max-width: 700px)') {
   const [matches, setMatches] = useState();
 
   useEffect(() => setMatches(window.matchMedia(query).matches), [])

@@ -1,0 +1,15 @@
+.profileContainer {
+  display: flex;
+  align-content: center;
+  column-gap: 15px;
+}
+
+.arrow {
+  width: 10px;
+  height: 10px;
+  border: solid 1px white;
+  border-width: 0 1.5px 1.5px 0;
+  padding: 5px;
+  transform: rotate(45deg);
+  margin-top: 4px;
+}
