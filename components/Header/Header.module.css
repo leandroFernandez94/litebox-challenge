@@ -10,6 +10,10 @@
   padding: 20px 12%;
 }
 
+.logo {
+  cursor:pointer;
+}
+
 .headerScrolled {
   background: rgba(0, 0, 0, 1);
 }
@@ -24,6 +28,7 @@
 .headerSection.mainSection {
   flex-grow: 1;
   justify-content: start;
+  align-items: baseline;
 }
 
 .mainOption {

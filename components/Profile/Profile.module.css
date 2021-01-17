@@ -2,6 +2,8 @@
   display: flex;
   align-content: center;
   column-gap: 15px;
+  cursor: pointer;
+  position: relative;
 }
 
 .arrow {
@@ -12,4 +14,80 @@
   padding: 5px;
   transform: rotate(45deg);
   margin-top: 4px;
+}
+
+.dropdownContainer {
+  position: absolute;
+  width: 130px;
+  background-color: white;
+  top: 34px;
+  right: 0;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: stretch;
+  row-gap: 6px;
+  padding: 11px 0;
+}
+
+.dropdownContainer:after {
+  content: "";
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  transform: rotate(-315deg);
+  border-radius: 5px;
+  background-color: white;
+  right: 30.5px;
+  top: -4px;
+}
+
+
+.userOptionContainer {
+  width: 111px;
+  height: 37px;
+  padding: 6px 6px 6px 7px;
+  border-radius: 18.5px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.userOptionName {
+  color: #9b9b9b;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.oval {
+  background-color: #9b9b9b;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  position: relative;
+  min-width: 25px;
+}
+
+.oval > img {
+  position: absolute;
+  top: 5px;
+  left: 6px;
+}
+
+.userOptionContainer.selected {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.oval.selected {
+  background-color: #ce00ff;
 }

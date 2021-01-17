@@ -28,11 +28,11 @@ export default function Header({openUploadMovieModal}) {
   return (
     <nav className={classnames(styles.header, {[styles.headerScrolled]: isScrolled})}>
       {isMobile ? (
-        <img src="/liteflix.svg"></img>
+        <img src="/liteflix.svg" className={styles.logo}></img>
       ) : (
         <Fragment>
           <div className={classnames(styles.headerSection, styles.mainSection)}>
-            <img src="/liteflix.svg"></img>
+            <img src="/liteflix.svg" className={styles.logo}></img>
             <a className={styles.mainOption}>inicio</a>
             <a className={styles.mainOption}>series</a>
             <a className={styles.mainOption}>peliculas</a>
