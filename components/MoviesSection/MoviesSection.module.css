@@ -1,5 +1,11 @@
 .appSectionContainer {
+  display: flex;
+  flex-direction: column;
   top: 30%;
+}
+
+.appSectionTitle {
+  font-weight: bold;
 }
 
 .sectionItems {
@@ -17,6 +23,9 @@
 }
 
 @media (max-width: 700px) {
+  .appSectionContainer {
+    column-gap: 9px;
+  }
   .sectionItems {
     display: flex;
     flex-direction: column;

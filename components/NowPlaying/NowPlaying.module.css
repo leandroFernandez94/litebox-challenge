@@ -1,0 +1,20 @@
+.nowPlaying {
+  height: 30%
+}
+
+.gradientContainer {
+  position: relative;
+  display: inline-block;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.2) 77%, #000000);
+}
+
+.bgPoster {
+  width: 100%;
+  display:block;
+}
+
+@media (max-width: 700px) {
+  .nowPlaying {
+    height: 70%;
+  }
+}

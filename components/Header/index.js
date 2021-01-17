@@ -1,7 +1,6 @@
 import styles from './Header.module.css'
 import classnames from 'classnames'
 import { useEffect, useRef, useState } from 'react'
-import MobileMenu from '../MobileMenu'
 
 export default function Header({openUploadMovieModal}) {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -23,7 +22,6 @@ export default function Header({openUploadMovieModal}) {
 
   return (
     <nav className={classnames(styles.header, {[styles.headerScrolled]: isScrolled})}>
-      <MobileMenu />
       <div className={classnames(styles.headerSection, styles.mainSection)}>
         <img src="/liteflix.svg"></img>
         <a className={styles.mainOption}>inicio</a>
