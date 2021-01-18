@@ -51,12 +51,22 @@ export default function Home() {
         }
 
         .lists-container {
-          position: relative;
+          position: absolute;
           padding: 0 12%;
-          top: -56px;
+          top: 75%;
+        }
+
+        @media (max-width: 1024px) {
+          .lists-container {
+            top: 65%;
+          }
         }
     
         @media (max-width: 700px) {
+          .lists-container {
+            top: 55%;
+          }
+
         }
       `}</style>
     </Fragment>

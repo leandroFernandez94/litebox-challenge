@@ -46,7 +46,7 @@ function Menu({isOpen, close, addMovieHandler}) {
   )
 }
 
-export default function MobileMenu({isMobileMenuOpen, setIsMobileMenuOpen}) {
+export default function MobileMenu({isMobileMenuOpen, setIsMobileMenuOpen, addMovieHandler}) {
   const mobileElement = useRef(null)
   useEffect(() => {
     mobileElement.current = document.querySelector('#mobile-sidebar')

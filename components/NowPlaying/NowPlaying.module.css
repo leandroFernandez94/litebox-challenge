@@ -5,15 +5,23 @@
 .gradientContainer {
   position: relative;
   display: inline-block;
+}
+
+.gradientContainer:after {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
   background-image: linear-gradient(to top, rgba(0, 0, 0, 0.2) 77%, #000000);
 }
 
 .bgPoster {
   width: 100%;
-  display:block;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 500px) {
   .nowPlaying {
     height: 70%;
   }
