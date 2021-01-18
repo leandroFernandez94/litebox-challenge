@@ -70,8 +70,11 @@
   border-radius: 18.5px;
   display: flex;
   align-items: center;
-  column-gap: 4px;
   padding: 8px;
+}
+
+.usernameContainer > *:not(:last-child) {
+  margin-right: 4px;
 }
 
 .usernameTxt {

@@ -42,9 +42,12 @@
 
 .detailsContainer {
   display: flex;
-  column-gap: 30px;
   margin-top: 30px;
   justify-content: space-between;
+}
+
+.detailsContainer > *:not(:last-child) {
+  margin-right: 30px;
 }
 
 .detailsContainer > label {

@@ -15,7 +15,10 @@
 .sectionItems {
   display: flex;
   justify-content: flex-start;
-  column-gap: 15px;
+}
+
+.sectionItems > *:not(:last-child) {
+  margin-right: 15px;
 }
 
 .sectionItems.verticalItems > * {
@@ -28,9 +31,10 @@
 }
 
 @media (max-width: 700px) {
-  .appSectionContainer {
-    column-gap: 9px;
+  .appSectionContainer > *:not(:last-child) {
+    margin-right: 9px;
   }
+
   .sectionItems {
     display: flex;
     flex-direction: column;
@@ -38,9 +42,12 @@
   
   
   .sectionItems.verticalItems {
-    column-gap: 0px;
     flex-direction: row;
     flex-wrap: wrap;
+  }
+
+  .sectionItems.verticalItems > *:not(:last-child) {
+    margin-right: 0px;
   }
 
   .sectionItems.verticalItems > * {

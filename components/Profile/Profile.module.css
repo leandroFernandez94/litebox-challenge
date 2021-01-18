@@ -1,9 +1,12 @@
 .profileContainer {
   display: flex;
   align-content: center;
-  column-gap: 15px;
   cursor: pointer;
   position: relative;
+}
+
+.profileContainer > *:not(:last-child) {
+  margin-right: 15px;
 }
 
 .arrow {
@@ -59,8 +62,11 @@
   background-color: white;
   display: flex;
   align-items: center;
-  column-gap: 8px;
   cursor: pointer;
+}
+
+.userOptionContainer > *:not(:last-child) {
+  margin-right: 8px;
 }
 
 .userOptionName {
