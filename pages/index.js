@@ -22,12 +22,19 @@ async function fetchPopular() {
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const isMobile = useMobileMedia()
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
     <Fragment>
       <div id="app-container">
-        {isMobile && <MobileMenu addMovieHandler={() => setIsModalOpen(true)}/>}
-        <Header openUploadMovieModal={setIsModalOpen} />
+        {isMobile && (
+          <MobileMenu 
+            addMovieHandler={() => setIsModalOpen(true)}
+            isMobileMenuOpen={isMobileMenuOpen}
+            setIsMobileMenuOpen={setIsMobileMenuOpen}
+          />
+        )}
+        {!isMobileMenuOpen && <Header openUploadMovieModal={setIsModalOpen} />}
         <NowPlaying />
         <div className="lists-container">
           <MoviesSection name="Proximamente" fetchFunction={fetchUpcoming}/>

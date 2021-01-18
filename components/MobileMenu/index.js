@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import classNames from 'classnames'
 import { createPortal } from 'react-dom'
 import styles from './MobileMenu.module.css'
@@ -46,27 +46,30 @@ function Menu({isOpen, close, addMovieHandler}) {
   )
 }
 
-export default function MobileMenu({addMovieHandler}) {
-  const [isOpen, setIsOpen] = useState(false)
+export default function MobileMenu({isMobileMenuOpen, setIsMobileMenuOpen}) {
   const mobileElement = useRef(null)
   useEffect(() => {
     mobileElement.current = document.querySelector('#mobile-sidebar')
   }, [])
 
   function addMovie() {
-    setIsOpen(false)
+    setIsMobileMenuOpen(false)
     addMovieHandler()
   }
 
   return (
     <div className={styles.menuContainer}>
-      <div className={styles.menuImgContainer} onClick={() => setIsOpen(oldVal => !oldVal)}>
-        <img src="/menu.svg" className={styles.menuImg}></img>
-      </div>
+      {!isMobileMenuOpen && (
+        <div 
+          className={styles.menuImgContainer}
+          onClick={() => setIsMobileMenuOpen(true)}>
+          <img src="/menu.svg" className={styles.menuImg}></img>
+        </div>
+      )}
       {mobileElement.current && createPortal(
         <Menu 
-          isOpen={isOpen}
-          close={() => setIsOpen(false)}
+          isOpen={isMobileMenuOpen}
+          close={() => setIsMobileMenuOpen(false)}
           addMovieHandler={addMovie}/>,
         mobileElement.current
       )}
