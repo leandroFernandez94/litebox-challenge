@@ -14,7 +14,7 @@ export default function UserOption({selected, username}) {
   return (
     <div className={classNames(styles.userOptionContainer, {[styles.selected]: selected})}>
       <Oval selected={selected} />
-      <span className={styles.userOptionName}>{username}</span>
+      <span className={classNames(styles.text, styles.userOptionName)}>{username}</span>
     </div>
   )
 }

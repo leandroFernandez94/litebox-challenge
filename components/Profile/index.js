@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import styles from './Profile.module.css'
+import SettingButton from './SettingButton'
 import UserOption from './UserOption'
+import Logout from './Logout'
 
 export default function Profile() {
   const [expanded, setExpanded] = useState(false)
@@ -8,10 +10,10 @@ export default function Profile() {
 
   useEffect(() => {
     containerRef.current.addEventListener('mouseenter', () => {
-      setExpanded(oldVal => !oldVal)
+      setExpanded(true)
     })
     containerRef.current.addEventListener('mouseleave', () => {
-      setExpanded(oldVal => !oldVal)
+      setExpanded(false)
     })
   }, [])
 
@@ -21,10 +23,15 @@ export default function Profile() {
       <img src="/profile-icon-desktop.svg"></img>
       <div className={styles.arrow}></div>
       {expanded && (
-        <div className={styles.dropdownContainer}>
-          <UserOption selected username="Leandro Fernandez" />
-          <UserOption username="User 03" />
-          <UserOption username="User 04" />
+        <div className={styles.dropdownPosition}>
+          <div className={styles.dropdownContainer}>
+            <UserOption selected username="Leandro Fernandez" />
+            <UserOption username="User 03" />
+            <UserOption username="User 04" />
+            <SettingButton name="Configuracion"/>
+            <SettingButton name="Ayuda" />
+            <Logout/>
+          </div>
         </div>)
       }
     </div>

@@ -16,19 +16,25 @@
   margin-top: 4px;
 }
 
-.dropdownContainer {
+.dropdownPosition {
   position: absolute;
+  top: 25px;
+  right: 0;
+  cursor: default
+}
+
+.dropdownContainer {
+  position: relative;
+  top: 9px;
   width: 130px;
   background-color: white;
-  top: 34px;
-  right: 0;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: stretch;
   row-gap: 6px;
-  padding: 11px 0;
+  padding: 11px 0 0;
 }
 
 .dropdownContainer:after {
@@ -41,6 +47,7 @@
   background-color: white;
   right: 30.5px;
   top: -4px;
+  z-index: -1;
 }
 
 
@@ -53,11 +60,16 @@
   display: flex;
   align-items: center;
   column-gap: 8px;
+  cursor: pointer;
 }
 
 .userOptionName {
   color: #9b9b9b;
+}
+
+.text {
   font-family: Montserrat;
+  color: black;
   font-size: 12px;
   font-weight: normal;
   font-stretch: normal;
@@ -90,4 +102,34 @@
 
 .oval.selected {
   background-color: #ce00ff;
+}
+
+.settingButtonContainer {
+  height: 28px;
+  width: 100%;
+  padding: 0 15px;
+}
+
+.settingButtonText {
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.logoutOptionContainer {
+  height: 28px;
+  width: 100%;
+  padding: 0 15px;
+}
+
+.logoutOptionText {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.horizontalLine {
+  border: none;
+  background-color: #ccc;
+  color: #cccccc;
+  height: 1px;
 }

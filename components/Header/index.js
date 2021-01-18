@@ -38,7 +38,7 @@ export default function Header({openUploadMovieModal}) {
             <a className={styles.mainOption}>peliculas</a>
             <a className={styles.mainOption}>agregados recientemente</a>
             <a className={styles.mainOption}>mi lista</a>
-            <AddMovieButton onClick={() => openUploadMovieModal(true)} />
+            <AddMovieButton short onClick={() => openUploadMovieModal(true)} />
           </div>
           <div className={classnames(styles.headerSection, styles.profileSection)}>
             <span className={styles.mainOption}>Niños</span>

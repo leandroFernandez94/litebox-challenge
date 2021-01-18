@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <Fragment>
       <div id="app-container">
-        {isMobile && <MobileMenu />}
+        {isMobile && <MobileMenu addMovieHandler={() => setIsModalOpen(true)}/>}
         <Header openUploadMovieModal={setIsModalOpen} />
         <NowPlaying />
         <div className="lists-container">

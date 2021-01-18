@@ -2,8 +2,16 @@
   cursor: pointer;
   display: block;
   position:fixed;
-  padding: 15px;
   z-index: 100;
+}
+
+.menuImgContainer {
+  padding: 15px;
+  width: 51px;
+}
+
+.menuImg {
+  z-index: 101;
 }
 
 .bar {
@@ -14,9 +22,22 @@
   transition: 0.2s;
 }
 
+
+.overlay {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: background-color 0.2s;
+}
+
+.overlay.open {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
 .sidebarContainer {
   width: 0;
-  position: absolute;
+  position: relative;
   background-color: black;
   top: 0;
   width: calc(100% * 2/3);
@@ -24,8 +45,103 @@
   transition: all 0.2s;
   transition-timing-function: ease-in;
   height: 100%;
+  z-index: 100;
+  
 }
 
 .sidebarContainer.sidebarContainerOpen {
   transform: translate3d(0px, 0px, 0px);
+}
+
+.sidebarHeader {
+  display: flex;
+}
+
+
+.sidebarContent {
+  padding: 22px 15px 0;
+}
+
+
+.usernameContainer {
+  background-color: #222222;
+  color: white;
+  height: 37px;
+  border-radius: 18.5px;
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+  padding: 8px;
+}
+
+.usernameTxt {
+  font-family: Montserrat;
+  font-size: 12px;
+}
+
+.oval {
+  background-color: #ce00ff;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  position: relative;
+  min-width: 25px;
+}
+
+.oval > img {
+  position: absolute;
+  top: 5px;
+  left: 5.5px;
+}
+
+.optionsContainer {
+  list-style: none;
+  padding: 0;
+}
+
+.userSettingContainer {
+  height: 28px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.userSettingContainer:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.userSettingText {
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.horizontalLine {
+  border: none;
+  background-color: #222222;
+  color: #222222;
+  height: 1px;
+}
+
+.notifications {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.notificationsText {
+  margin-left: 5px;
+  font-size: 14px;
+}
+
+.category {
+  font-size: 12px;
+}
+
+.category:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.logout {
+  font-weight: bold;
+  margin-top: 22px;
+  font-size: 12px;
 }
