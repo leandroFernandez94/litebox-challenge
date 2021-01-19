@@ -1,10 +1,12 @@
 .nowPlayingDetails {
   color: white;
-  position: absolute;
-  top: 15%;
-  width: 100%;
-  padding: 0 12%;
-  z-index: 1;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.nowPlayingDetails > *:not(:first-child) {
+  margin-top: 18px;
 }
 
 .nowPlayingHeader {
@@ -23,10 +25,21 @@
   letter-spacing: normal;
 }
 
+.optionsContainer {
+  display: flex;
+}
+
+.optionsContainer > *:first-child {
+  margin-right: 30px;
+}
+
 @media (max-width: 500px) {
   .nowPlayingDetails {
     text-align: center;
-    top: 40%;
+    align-items: center;
+    width: 100%;
+    top: 30%;
+    padding: 0 5%;
   }
 
   .nowPlayingHeader {
@@ -34,6 +47,76 @@
   }
 
   .nowPlayingTitle {
-    font-size: 6vw;
+    font-size: 14vw;
   }
+
+  .optionsContainer {
+    position: relative;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .imgContainer {
+    position: absolute;
+    right: 0;
+    top: 5px;
+  }
+
+  .optionsContainer > *:first-child {
+    margin-right: 0px;
+  }
+}
+
+@media (min-width: 501px) and (max-width: 1024px) {
+  .nowPlayingDetails {
+    width: 100%;
+  }
+}
+
+.nowPlayingOptionsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  width: 160px;
+  height: 40px;
+  border-radius: 20px;
+  background: rgba(0,0,0,0.5);
+  padding: 12px;
+}
+
+.nowPlayingOptionsContainer > *:first-child {
+  margin-right: 2px;
+}
+
+div.plusIcon {
+  position: relative;
+  height: 12px;
+  width: 13px;
+  border-left: 1px solid white;
+  left: 5px;
+}
+
+.plusIcon:after {
+  content: "";
+  position: absolute;
+  height: 1px;
+  width: 12px;
+  top: 5.5px;
+  left: -7px;
+  background-color: white;
+}
+
+.nowPlayingOptionsText {
+  font-family: Montserrat;
+  font-size: 16px;
+  color: white;
+}
+
+.season {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.description {
+  font-size: 18px;
 }

@@ -46,6 +46,10 @@
     flex-wrap: wrap;
   }
 
+  .sectionItems > *:not(:last-child) {
+    margin-right: 0px;
+  }
+
   .sectionItems.verticalItems > *:not(:last-child) {
     margin-right: 0px;
   }

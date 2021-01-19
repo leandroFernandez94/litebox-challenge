@@ -9,9 +9,8 @@ async function fetchNowPlaying() {
   return resultJson.results && resultJson.results[0]
 }
 
-export default function NowPlaying() {
-  const [mainPoster, setMainPoster] = useState(null)
-  const [loadingPoster, setLoadingPoster] = useState(true)
+export default function NowPlaying({setPoster}) {
+  const [loading, setLoading] = useState(true)
   const [data, setData] = useState(null)
   const isMobile = useMobileMedia()
   
@@ -24,15 +23,15 @@ export default function NowPlaying() {
     const path = isMobile ? data.poster_path : data.backdrop_path
     const response = await fetch(`https://image.tmdb.org/t/p/original${path}`)
     const dataBlob = await response.blob()
-    setMainPoster(URL.createObjectURL(dataBlob))
-    setLoadingPoster(false)
+    setPoster(URL.createObjectURL(dataBlob))
+    setLoading(false)
   }
 
   async function fetchNowPlayingData() {
     try {
       const data = await fetchNowPlaying()
-      console.log('data', data)
       setData(data)
+      setLoading(false)
     } catch(e) {
       console.error('failed to fetch now playing movie')
     }
@@ -42,11 +41,9 @@ export default function NowPlaying() {
   return (
     <div className={styles.nowPlaying}>
       {
-        !loadingPoster && 
-        mainPoster &&
+        !loading &&
         <div className={styles.gradientContainer}>
-          <img src={mainPoster} className={styles.bgPoster}/>
-          <NowPlayingDetails title={data.title}/>
+          <NowPlayingDetails title={data.title} description={data.overview}/>
         </div>
       }
     </div>

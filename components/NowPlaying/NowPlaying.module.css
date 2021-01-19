@@ -1,28 +1,9 @@
 .nowPlaying {
-  height: 30%
-}
-
-.gradientContainer {
-  position: relative;
-  display: inline-block;
-}
-
-.gradientContainer:after {
-  position: absolute;
-  content: "";
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.2) 77%, #000000);
-}
-
-.bgPoster {
-  width: 100%;
+  margin-bottom: 40px;
 }
 
 @media (max-width: 500px) {
   .nowPlaying {
-    height: 70%;
+    margin-bottom: 40px;     
   }
 }
