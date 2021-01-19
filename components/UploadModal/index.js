@@ -1,7 +1,8 @@
-import { useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames'
 import Modal from 'react-modal';
 import styles from './UploadModal.module.css'
+import UploadStateBar from './UploadStateBar';
 
 const SELECT_OPTIONS = [
   'Accion',
@@ -14,7 +15,6 @@ const SELECT_OPTIONS = [
   'Documentales'
 ]
 
-Modal.setAppElement('#upload-movie-modal')
 
 const modalStyle = {
   content: {
@@ -43,6 +43,8 @@ function handleInputChange(seter) {
   }
 }
 
+Modal.setAppElement('#upload-movie-modal')
+
 export default function UploadModal({isOpen, onCloseModal}) {
   const [title, setTitle] = useState("")
   const [category, setCategory] = useState(SELECT_OPTIONS[0])
@@ -51,52 +53,69 @@ export default function UploadModal({isOpen, onCloseModal}) {
 
 
   const isSubmitEnabled = useMemo(() => {
-    return (poster && title.length && category.length )
-  }, [poster, title, category])
+    return (uploadingState === 'success' && title.length && category.length )
+  }, [uploadingState, title, category])
   
-  async function handleSubmit(e) {
-    e.preventDefault()
-    const file = poster
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault()
+      const file = poster
 
-    const filename = encodeURIComponent(file.name);
-    const res = await fetch(`/api/get-presigned-url?file=${filename}`);
-    const { url, fields } = await res.json();
-    const formData = new FormData();
+      const filename = encodeURIComponent(file.name);
+      const res = await fetch(`/api/get-presigned-url?file=${filename}`);
+      const { url, fields } = await res.json();
+      const formData = new FormData();
 
-    Object.entries({ ...fields, file }).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
+      Object.entries({ ...fields, file }).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
 
-    const upload = await fetch(url, {
-      method: 'POST',
-      body: formData,
-    });
-
-    if (upload.ok) {
-      const uploadDBDocument = await fetch('/api/post-movie', {
+      const upload = await fetch(url, {
         method: 'POST',
-        body: JSON.stringify({
-          title: titleRef.current.value,
-          category: categoryRef.current.value,
-          filename
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      })
-      setUploadingState('success')
-    } else {
-      setUploadingState('failed')
-      console.error('Upload failed.');
+        body: formData,
+      });
+
+      if (upload.ok) {
+        await fetch('/api/post-movie', {
+          method: 'POST',
+          body: JSON.stringify({
+            title: title,
+            category: category,
+            filename
+          }),
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        })
+      } else {
+        console.error('Upload failed.');
+      }
     }
-  }
+  , [title, category, poster])
 
   function handleFileUpload(e) {
+
+    //JUST FOR FRONTEND DEMONSTRATION, WOULD NEVER DO THIS ON A REAL PROJECT
+    function fakeDelay() {
+      if(counter === 100) {
+        setUploadingState('success')
+        clearInterval(intervalId)
+      } else {
+        counter++
+        console.log(counter)
+        setUploadingState(counter)
+      }
+    }
+
     e.preventDefault()
+    setUploadingState(0)
+    let counter = 0
+    const intervalId = setInterval(fakeDelay, 50)
     const file = e.target.files[0];
     setPoster(file)
   }
-
+  
+  
 
   return (
     <Modal
@@ -112,16 +131,22 @@ export default function UploadModal({isOpen, onCloseModal}) {
           className={styles.fileInput}
           accept="image/png, image/jpeg"
         />
-        <label
-          htmlFor="file-input"
-          className={styles.fileInputLabel}
-          id="file-input-label">
-          <span className={styles.clipContainer}>
-            <img src="/clip.svg" className={styles.clip}></img>
-            <span className={styles.highlightedText}>Agregar archivo </span>
-            <span className={styles.text}>o arrastrarlo y soltarlo aqui</span>
-          </span>
-        </label>
+        {
+          uploadingState === 'not-uploaded'
+          ? (
+            <label
+              htmlFor="file-input"
+              className={styles.fileInputLabel}
+              id="file-input-label">
+              <span className={styles.clipContainer}>
+                <img src="/clip.svg" className={styles.clip}></img>
+                <span className={styles.highlightedText}>Agregar archivo </span>
+                <span className={styles.text}>o arrastrarlo y soltarlo aqui</span>
+              </span>
+            </label>
+          ) : 
+          <UploadStateBar status={uploadingState}/>
+        }
         <div className={styles.detailsContainer}>
           <label htmlFor="upload-movie-title">
             <span className={styles.inputLabel}>nombre de la pelicula</span>
@@ -129,7 +154,7 @@ export default function UploadModal({isOpen, onCloseModal}) {
           </label>
           <label htmlFor="upload-movie-category">
             <span className={styles.inputLabel}>categoria</span>
-            <select className={styles.modalInput} onChange={handleInputChange(setCategory)} required id="upload-movie-category" placeholder="title...">
+            <select className={classNames(styles.modalInput, styles.selectInput)} onChange={handleInputChange(setCategory)} required id="upload-movie-category" placeholder="title...">
               {SELECT_OPTIONS.map(opt => (
                 <option key={opt} value={opt}>
                   {opt}

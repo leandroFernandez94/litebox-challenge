@@ -5,7 +5,7 @@
   position: relative;
 }
 
-.profileContainer > *:not(:last-child) {
+.profileContainer > *:first-child {
   margin-right: 15px;
 }
 

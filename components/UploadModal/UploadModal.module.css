@@ -12,6 +12,11 @@
   height: 0;
 }
 
+.selectInput {
+  background-color: white;
+  appearance: none;
+}
+
 .fileInputLabel {
   width: 100%;
   height: 100px;

@@ -1,8 +1,40 @@
-.uploadStateBarContainer {
+.container {
   padding: 15px 30px;
   border-radius: 10px;
   background-color: #f3f3f3;
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  height: 100px;
 }
+
+.statusText {
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 10px;
+}
+
+.statusBarContainer {
+  height: 20px;
+  position: relative;
+  width: 100%;
+  background-color: #dedede;
+  border-radius: 10px;
+}
+
+.statusBarOverlay {
+  position: absolute;
+  border-radius: 10px;
+  top: 0;
+  left: 0;
+  height: 20px;
+  background-color: green;
+  transition: all 0.2s;
+}
+
+.container.error .statusBarOverlay {
+  background-color: #ff0000;
+}
+
