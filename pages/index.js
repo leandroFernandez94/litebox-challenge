@@ -8,13 +8,13 @@ import MobileMenu from '../components/MobileMenu'
 import useMobileMedia from '../hooks/useMobileMedia'
 
 async function fetchUpcoming() {
-  const result = await fetch('https://api.themoviedb.org/3/movie/upcoming?api_key=6f26fd536dd6192ec8a57e94141f8b20')
+  const result = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.NEXT_PUBLIC_MOVIE_DB_KEY}`)
   const resultJson = await result.json()
   return resultJson.results
 }
 
 async function fetchPopular() {
-  const result = await fetch('https://api.themoviedb.org/3/movie/popular?api_key=6f26fd536dd6192ec8a57e94141f8b20')
+  const result = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.NEXT_PUBLIC_MOVIE_DB_KEY}`)
   const resultJson = await result.json()
   return resultJson.results
 }
