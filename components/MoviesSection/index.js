@@ -20,6 +20,7 @@ export default function MoviesSection({name, fetchFunction, usePoster = false, i
   useEffect(fetchMovies, [items])
 
 
+  if(!movies || !movies.length) return null
 
   return (
     <div className={styles.appSectionContainer}>

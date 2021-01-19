@@ -17,7 +17,6 @@ const LoadingText = ({percent}) => (
 
 
 export default function UploadStateBar({status}) {
-  console.log('status', status)
   let statusText
   switch(status) {
     case STATES.ERROR:

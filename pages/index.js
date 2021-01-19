@@ -25,6 +25,11 @@ export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   
   const [poster, setPoster] = useState(null)
+  const [newMovies, setNewMovies] = useState([])
+
+  function addMovie(movie) {
+    setNewMovies(oldMovies => [...oldMovies, movie])
+  }
 
   return (
     <Fragment>
@@ -42,9 +47,9 @@ export default function Home() {
           <NowPlaying setPoster={setPoster}/>
           <MoviesSection name="Proximamente" fetchFunction={fetchUpcoming}/>
           <MoviesSection name="Populares en Liteflix" fetchFunction={fetchPopular} usePoster />
-          <MyList />
+          <MyList newMovies={newMovies}/>
         </div>
-        <UploadModal isOpen={isModalOpen} onCloseModal={() => setIsModalOpen(false)} />
+        <UploadModal isOpen={isModalOpen} onCloseModal={() => setIsModalOpen(false)} onAddMovie={addMovie}/>
       </div>
       <div id="upload-movie-modal"/>
       <div id="mobile-sidebar"/>

@@ -23,7 +23,7 @@ export default function MoviePoster({movie, usePoster}) {
 
 
   async function downloadPoster() {
-    const posterUrl = movie.posterUrl || `https://image.tmdb.org/t/p/w500${usePoster ? movie.poster_path : movie.backdrop_path}`
+    const posterUrl = movie.filename || movie.posterUrl || `https://image.tmdb.org/t/p/w500${usePoster ? movie.poster_path : movie.backdrop_path}`
     const data = await fetch(posterUrl)
     const dataBlob = await data.blob()
     setPoster(URL.createObjectURL(dataBlob))

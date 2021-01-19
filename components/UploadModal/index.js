@@ -52,7 +52,7 @@ function handleInputChange(seter) {
 
 Modal.setAppElement('#upload-movie-modal')
 
-export default function UploadModal({isOpen, onCloseModal}) {
+export default function UploadModal({isOpen, onCloseModal, onAddMovie}) {
   const [title, setTitle] = useState("")
   const [category, setCategory] = useState(SELECT_OPTIONS[0])
   const [poster, setPoster] = useState(null)
@@ -91,19 +91,22 @@ export default function UploadModal({isOpen, onCloseModal}) {
 
       if (upload.ok) {
         try {
-          await fetch('/api/post-movie', {
+          const data = {
+            title: title,
+            category: category,
+            filename
+          }
+          const response = await fetch('/api/post-movie', {
             method: 'POST',
-            body: JSON.stringify({
-              title: title,
-              category: category,
-              filename
-            }),
+            body: JSON.stringify(data),
             headers: {
               'Content-Type': 'application/json'
             },
           })
+          const responseJson = await response.json()
 
           setUploadingState(STATES.FINISHED)
+          onAddMovie(responseJson.data)
         } catch(e) {
           setUploadingState(STATES.ERROR)
         }
@@ -122,7 +125,6 @@ export default function UploadModal({isOpen, onCloseModal}) {
         clearInterval(intervalId)
       } else {
         counter++
-        console.log(counter)
         setUploadingState(counter)
       }
     }
