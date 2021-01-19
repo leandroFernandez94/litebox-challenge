@@ -3,6 +3,14 @@ import classNames from 'classnames'
 import Modal from 'react-modal';
 import styles from './UploadModal.module.css'
 import UploadStateBar from './UploadStateBar';
+import FinishedState from './FinishedState';
+
+export const STATES = {
+  NOT_UPLOADED: 'not-uploaded',
+  FINISHED: 'finished',
+  ERROR: 'error',
+  SUCCESS: 'success'
+}
 
 const SELECT_OPTIONS = [
   'Accion',
@@ -14,7 +22,6 @@ const SELECT_OPTIONS = [
   'Comedia',
   'Documentales'
 ]
-
 
 const modalStyle = {
   content: {
@@ -49,8 +56,15 @@ export default function UploadModal({isOpen, onCloseModal}) {
   const [title, setTitle] = useState("")
   const [category, setCategory] = useState(SELECT_OPTIONS[0])
   const [poster, setPoster] = useState(null)
-  const [uploadingState, setUploadingState] = useState("not-uploaded")
+  const [uploadingState, setUploadingState] = useState(STATES.NOT_UPLOADED)
 
+  function closeModal() {
+    setTitle("")
+    setCategory(SELECT_OPTIONS[0])
+    setPoster(null)
+    setUploadingState(STATES.NOT_UPLOADED)
+    onCloseModal()
+  }
 
   const isSubmitEnabled = useMemo(() => {
     return (uploadingState === 'success' && title.length && category.length )
@@ -76,17 +90,23 @@ export default function UploadModal({isOpen, onCloseModal}) {
       });
 
       if (upload.ok) {
-        await fetch('/api/post-movie', {
-          method: 'POST',
-          body: JSON.stringify({
-            title: title,
-            category: category,
-            filename
-          }),
-          headers: {
-            'Content-Type': 'application/json'
-          },
-        })
+        try {
+          await fetch('/api/post-movie', {
+            method: 'POST',
+            body: JSON.stringify({
+              title: title,
+              category: category,
+              filename
+            }),
+            headers: {
+              'Content-Type': 'application/json'
+            },
+          })
+
+          setUploadingState(STATES.FINISHED)
+        } catch(e) {
+          setUploadingState(STATES.ERROR)
+        }
       } else {
         console.error('Upload failed.');
       }
@@ -98,7 +118,7 @@ export default function UploadModal({isOpen, onCloseModal}) {
     //JUST FOR FRONTEND DEMONSTRATION, WOULD NEVER DO THIS ON A REAL PROJECT
     function fakeDelay() {
       if(counter === 100) {
-        setUploadingState('success')
+        setUploadingState(STATES.SUCCESS)
         clearInterval(intervalId)
       } else {
         counter++
@@ -120,57 +140,74 @@ export default function UploadModal({isOpen, onCloseModal}) {
   return (
     <Modal
       isOpen={isOpen}
-      onRequestClose={onCloseModal}
-      style={modalStyle}>
-      <form className={styles.modalForm} onSubmit={handleSubmit}>
-        <input
-          onChange={handleFileUpload}
-          type="file"
-          required
-          id="file-input"
-          className={styles.fileInput}
-          accept="image/png, image/jpeg"
-        />
+      onRequestClose={closeModal}
+      style={
         {
-          uploadingState === 'not-uploaded'
-          ? (
-            <label
-              htmlFor="file-input"
-              className={styles.fileInputLabel}
-              id="file-input-label">
-              <span className={styles.clipContainer}>
-                <img src="/clip.svg" className={styles.clip}></img>
-                <span className={styles.highlightedText}>Agregar archivo </span>
-                <span className={styles.text}>o arrastrarlo y soltarlo aqui</span>
-              </span>
-            </label>
-          ) : 
-          <UploadStateBar status={uploadingState}/>
+          ...modalStyle,
+          content: {
+            ...modalStyle.content, 
+            backgroundColor: uploadingState === STATES.FINISHED ? '#7ed321' : 'white'}
         }
-        <div className={styles.detailsContainer}>
-          <label htmlFor="upload-movie-title">
-            <span className={styles.inputLabel}>nombre de la pelicula</span>
-            <input className={styles.modalInput} onChange={handleInputChange(setTitle)} required id="upload-movie-title" placeholder="title..."></input>
-          </label>
-          <label htmlFor="upload-movie-category">
-            <span className={styles.inputLabel}>categoria</span>
-            <select className={classNames(styles.modalInput, styles.selectInput)} onChange={handleInputChange(setCategory)} required id="upload-movie-category" placeholder="title...">
-              {SELECT_OPTIONS.map(opt => (
-                <option key={opt} value={opt}>
-                  {opt}
-                </option>  
-              ))}
-            </select>
-          </label>
-        </div>
-        <div className={styles.submitBtnContainer}>
-          <button 
-            className={classNames(styles.submitBtn, isSubmitEnabled && styles.submitBtnEnabled)} 
-            type="submit">
-              Subir Pelicula
-          </button>
-        </div>
-      </form>
+      }
+    >
+      {
+        uploadingState === STATES.FINISHED && (
+          <FinishedState onClose={closeModal} title={title}/>
+        )
+      }
+      {
+        uploadingState !== STATES.FINISHED && (
+          <form className={styles.modalForm} onSubmit={handleSubmit}>
+            <input
+              onChange={handleFileUpload}
+              type="file"
+              required
+              id="file-input"
+              className={styles.fileInput}
+              accept="image/png, image/jpeg"
+            />
+            {
+              uploadingState === STATES.NOT_UPLOADED
+              ? (
+                <label
+                  htmlFor="file-input"
+                  className={styles.fileInputLabel}
+                  id="file-input-label">
+                  <span className={styles.clipContainer}>
+                    <img src="/clip.svg" className={styles.clip}></img>
+                    <span className={styles.highlightedText}>Agregar archivo </span>
+                    <span className={styles.text}>o arrastrarlo y soltarlo aqui</span>
+                  </span>
+                </label>
+              ) : 
+              <UploadStateBar status={uploadingState}/>
+            }
+            <div className={styles.detailsContainer}>
+              <label htmlFor="upload-movie-title">
+                <span className={styles.inputLabel}>nombre de la pelicula</span>
+                <input className={styles.modalInput} onChange={handleInputChange(setTitle)} required id="upload-movie-title" placeholder="title..."></input>
+              </label>
+              <label htmlFor="upload-movie-category">
+                <span className={styles.inputLabel}>categoria</span>
+                <select className={classNames(styles.modalInput, styles.selectInput)} onChange={handleInputChange(setCategory)} required id="upload-movie-category" placeholder="title...">
+                  {SELECT_OPTIONS.map(opt => (
+                    <option key={opt} value={opt}>
+                      {opt}
+                    </option>  
+                  ))}
+                </select>
+              </label>
+            </div>
+            <div className={styles.submitBtnContainer}>
+              <button 
+                className={classNames(styles.submitBtn, isSubmitEnabled && styles.submitBtnEnabled)} 
+                type="submit">
+                  Subir Pelicula
+              </button>
+            </div>
+          </form>
+        )
+      }
     </Modal>
   )
 }

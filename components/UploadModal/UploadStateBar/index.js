@@ -1,6 +1,8 @@
 import classNames from 'classnames'
 import styles from './UploadStateBar.module.css'
 
+import {STATES} from '../index'
+
 const ErrorText = () => (
   <span><b>Error!</b> No se pudo cargar la película</span> 
 )
@@ -18,10 +20,10 @@ export default function UploadStateBar({status}) {
   console.log('status', status)
   let statusText
   switch(status) {
-    case 'error':
+    case STATES.ERROR:
       statusText = <ErrorText />
       break
-    case 'success':
+    case STATES.SUCCESS:
       statusText = <SuccessText />
       break
     default:
@@ -29,7 +31,7 @@ export default function UploadStateBar({status}) {
   }
 
   const width = 
-    (status === 'success' || status === 'error')
+    (status === STATES.SUCCESS || status === STATES.ERROR)
      ? 100 
      : status
 
@@ -38,8 +40,8 @@ export default function UploadStateBar({status}) {
       className={classNames(
         styles.container, 
         {
-          [styles.error]: status === 'error',
-          [styles.success]: status === 'success',
+          [styles.error]: status === STATES.ERROR,
+          [styles.success]: status === STATES.SUCCESS,
         }
       )}>
       <div className={styles.statusText}>{statusText}</div>

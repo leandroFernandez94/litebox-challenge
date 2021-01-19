@@ -1,0 +1,19 @@
+.finishedStateContainer {
+  color: white;
+}
+
+.congrats{
+  margin-top: 44px;
+  font-size: 24px;
+}
+
+.close {
+  margin-top: 51px;
+  outline: none;
+  border: none;
+  height: 70px;
+  color: white;
+  background-color: black;
+  padding: 25px 70px;
+  border-radius: 35px;
+}
