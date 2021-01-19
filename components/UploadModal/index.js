@@ -117,6 +117,7 @@ export default function UploadModal({isOpen, onCloseModal, onAddMovie}) {
   , [title, category, poster])
 
   function handleFileUpload(e) {
+    e.preventDefault()
 
     //JUST FOR FRONTEND DEMONSTRATION, WOULD NEVER DO THIS ON A REAL PROJECT
     function fakeDelay() {
@@ -129,11 +130,10 @@ export default function UploadModal({isOpen, onCloseModal, onAddMovie}) {
       }
     }
 
-    e.preventDefault()
     setUploadingState(0)
     let counter = 0
     const intervalId = setInterval(fakeDelay, 50)
-    const file = e.target.files[0];
+    const file = e.type === 'change' ? e.target.files[0] : e.dataTransfer.files[0];
     setPoster(file)
   }
   
@@ -160,21 +160,23 @@ export default function UploadModal({isOpen, onCloseModal, onAddMovie}) {
       {
         uploadingState !== STATES.FINISHED && (
           <form className={styles.modalForm} onSubmit={handleSubmit}>
-            <input
-              onChange={handleFileUpload}
-              type="file"
-              required
-              id="file-input"
-              className={styles.fileInput}
-              accept="image/png, image/jpeg"
-            />
             {
               uploadingState === STATES.NOT_UPLOADED
               ? (
                 <label
-                  htmlFor="file-input"
-                  className={styles.fileInputLabel}
-                  id="file-input-label">
+                htmlFor="file-input"
+                className={styles.fileInputLabel}
+                id="file-input-label">
+                  <input
+                    onChange={handleFileUpload}
+                    type="file"
+                    required
+                    id="file-input"
+                    className={styles.fileInput}
+                    accept="image/png, image/jpeg"
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={handleFileUpload}
+                  />
                   <span className={styles.clipContainer}>
                     <img src="/clip.svg" className={styles.clip}></img>
                     <span className={styles.highlightedText}>Agregar archivo </span>
