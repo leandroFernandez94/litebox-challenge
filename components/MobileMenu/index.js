@@ -36,7 +36,7 @@ function Menu({isOpen, close, addMovieHandler}) {
             <li className={styles.category}>Series</li>
             <li className={styles.category}>Peliculas</li>
             <li className={styles.category}>Mi Lista</li>
-            <li className={styles.category}>Ninos</li>
+            <li className={styles.category}>Niños</li>
           </ul>
           <AddMovieButton onClick={addMovieHandler} />
           <div className={styles.logout}>Logout</div>

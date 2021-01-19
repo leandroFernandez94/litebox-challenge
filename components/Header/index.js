@@ -4,6 +4,7 @@ import { Fragment, useEffect, useRef, useState } from 'react'
 import Profile from '../Profile'
 import AddMovieButton from '../AddMovieButton'
 import useMobileMedia from '../../hooks/useMobileMedia'
+import NotificationsBell from '../NotificationsBell'
 
 export default function Header({openUploadMovieModal}) {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -42,6 +43,7 @@ export default function Header({openUploadMovieModal}) {
           </div>
           <div className={classnames(styles.headerSection, styles.profileSection)}>
             <span className={styles.mainOption}>Niños</span>
+            <NotificationsBell hasNotifications/>
             <Profile/>
           </div>
         </Fragment>
